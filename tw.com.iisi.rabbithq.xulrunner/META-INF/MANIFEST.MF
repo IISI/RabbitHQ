@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Xulrunner
+Bundle-SymbolicName: tw.com.iisi.rabbithq.xulrunner
+Bundle-Version: 1.9.2.13
+Bundle-Vendor: IISI
+Fragment-Host: tw.com.iisi.rabbithq;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
