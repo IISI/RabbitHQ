@@ -61,6 +61,7 @@
    <features>
       <feature id="tw.com.iisi.rabbithq.app"/>
       <feature id="tw.com.iisi.rabbithq.jetty"/>
+      <feature id="tw.com.iisi.rabbithq.spring.osgi"/>
    </features>
 
    <configurations>
