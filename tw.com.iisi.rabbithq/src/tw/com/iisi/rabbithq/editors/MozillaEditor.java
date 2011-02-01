@@ -6,6 +6,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.browser.TitleEvent;
+import org.eclipse.swt.browser.TitleListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -70,6 +72,14 @@ public class MozillaEditor extends EditorPart {
             Platform.getLog(bundle).log(status);
             browser = new Browser(parent, SWT.NONE);
         }
+
+        browser.addTitleListener(new TitleListener() {
+
+            @Override
+            public void changed(TitleEvent event) {
+                MozillaEditor.this.setPartName(event.title);
+            }
+        });
 
         browser.setUrl(getEditorInput().getName());
     }
