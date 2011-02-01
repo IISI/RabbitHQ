@@ -70,6 +70,8 @@ public class MozillaEditor extends EditorPart {
             Platform.getLog(bundle).log(status);
             browser = new Browser(parent, SWT.NONE);
         }
+
+        browser.setUrl(getEditorInput().getName());
     }
 
     @Override
