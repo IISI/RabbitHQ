@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Aquarius
+Bundle-SymbolicName: tw.com.iisi.aquarius
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: tw.com.iisi.aquarius.Activator
+Bundle-Vendor: Hsien Chih Wang
+Require-Bundle: org.eclipse.core.runtime,
+ org.apache.wicket.wicket;bundle-version="1.4.15",
+ org.apache.wicket.wicket-spring;bundle-version="1.4.15",
+ org.apache.wicket.wicket-ioc;bundle-version="1.4.15"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: tw.com.iisi.aquarius.web
