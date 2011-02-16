@@ -97,5 +97,12 @@
          </property>
       </product>
    </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution locationURI="menu:help">
+         <command commandId="org.eclipselabs.p2.rcpupdate.install" style="push"/>
+         <command commandId="org.eclipselabs.p2.rcpupdate.update" style="push"/>
+      </menuContribution>
+   </extension>
 
 </plugin>
