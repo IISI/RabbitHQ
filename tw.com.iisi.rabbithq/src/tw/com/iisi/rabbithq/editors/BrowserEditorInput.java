@@ -46,7 +46,7 @@ public class BrowserEditorInput implements IEditorInput {
 
     @Override
     public String getToolTipText() {
-        return url;
+        return "";
     }
 
     @Override
