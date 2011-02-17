@@ -6,6 +6,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.browser.BrowserFunction;
 import org.eclipse.swt.browser.TitleEvent;
 import org.eclipse.swt.browser.TitleListener;
 import org.eclipse.swt.widgets.Composite;
@@ -80,6 +81,9 @@ public class MozillaEditor extends EditorPart {
                 MozillaEditor.this.setPartName(event.title);
             }
         });
+
+        // 增加 call java from javascript 的功能。
+        final BrowserFunction function = new JavaFunction(browser, "callJava");
 
         browser.setUrl(getEditorInput().getName());
     }
