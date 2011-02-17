@@ -10,4 +10,8 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: tw.com.iisi.rabbithq.editors
-Import-Package: org.eclipselabs.p2.rcpupdate.utils
+Import-Package: org.eclipselabs.p2.rcpupdate.utils,
+ org.springframework.beans.factory,
+ org.springframework.context,
+ org.springframework.core.io,
+ org.springframework.core.io.support

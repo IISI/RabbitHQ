@@ -6,4 +6,6 @@ public interface IJavaHandler {
 
     Object execute(Browser browser, Object[] args);
 
+    String getName();
+
 }

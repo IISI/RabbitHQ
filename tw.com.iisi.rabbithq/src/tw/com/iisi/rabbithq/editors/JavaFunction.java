@@ -1,14 +1,14 @@
 package tw.com.iisi.rabbithq.editors;
 
-import org.eclipse.core.runtime.ILog;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Status;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
-import org.osgi.framework.Bundle;
+import org.springframework.context.ApplicationContext;
 
 import tw.com.iisi.rabbithq.Activator;
+import tw.com.iisi.rabbithq.util.ApplicationContextHolder;
 
 public class JavaFunction extends BrowserFunction {
 
@@ -18,40 +18,19 @@ public class JavaFunction extends BrowserFunction {
 
     @Override
     public Object function(Object[] arguments) {
-        String symbolicName = (String) arguments[0];
-        String version = arguments[1] == null ? null : (String) arguments[1];
-        String className = (String) arguments[2];
-        Bundle[] bundles = Platform.getBundles(symbolicName, version);
-        IStatus status = null;
-        try {
-            if (bundles != null && bundles.length > 0) {
-                Bundle bundle = bundles[0];
-                Class clazz = bundle.loadClass(className);
-                if (IJavaHandler.class.isAssignableFrom(clazz)) {
-                    IJavaHandler handler = (IJavaHandler) clazz.newInstance();
-                    return handler.execute(getBrowser(), arguments);
-                } else {
-                    status = new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-                            "Class [" + className
-                                    + "] is not type of IJavaHandler.");
-                }
-            } else {
-                status = new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-                        "Bundle [" + symbolicName + "] not found.");
+        Object result = null;
+        ApplicationContext appCtx = ApplicationContextHolder
+                .getApplicationContext(Activator.PLUGIN_ID);
+        Set<IJavaHandler> handlers = (Set<IJavaHandler>) appCtx
+                .getBean("javaHandlers");
+        for (Iterator<IJavaHandler> iter = handlers.iterator(); iter.hasNext();) {
+            IJavaHandler handler = iter.next();
+            if (handler.getName().equals(arguments[0])) {
+                result = handler.execute(getBrowser(), arguments);
+                break;
             }
-        } catch (ClassNotFoundException e) {
-            status = new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-                    "Loading class failed.", e);
-        } catch (InstantiationException e) {
-            status = new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-                    "Failed to create object.", e);
-        } catch (IllegalAccessException e) {
-            status = new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-                    "Failed to create object.", e);
         }
-        ILog logger = Platform.getLog(Activator.getDefault().getBundle());
-        logger.log(status);
-        return super.function(arguments);
+        return result;
     }
 
 }
