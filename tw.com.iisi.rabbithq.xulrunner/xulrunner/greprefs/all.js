@@ -58,7 +58,7 @@ pref("general.warnOnAboutConfig", true);
 // maximum number of dated backups to keep at any time
 pref("browser.bookmarks.max_backups",       5);
 
-pref("browser.cache.disk.enable",           true);
+pref("browser.cache.disk.enable",           false);
 //@line 63 "e:\builds\moz2_slave\release-mozilla-1.9.2-xulrunner_win32_build\build\modules\libpref\src\init\all.js"
 pref("browser.cache.disk.capacity",         51200);
 //@line 67 "e:\builds\moz2_slave\release-mozilla-1.9.2-xulrunner_win32_build\build\modules\libpref\src\init\all.js"
