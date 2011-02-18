@@ -3,10 +3,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 
-    <service interface="tw.com.iisi.rabbithq.editors.IJavaHandler">
-        <beans:bean class="tw.com.iisi.rabbithq.handler.java.CloseBrowserHandler"></beans:bean>
-    </service>
-
-    <set id="javaHandlers" interface="tw.com.iisi.rabbithq.editors.IJavaHandler" cardinality="0..N"></set>
+    <service ref="tw.com.iisi.rabbithq.handler.java.CloseBrowserHandler" interface="tw.com.iisi.rabbithq.editors.IJavaHandler"></service>
 
 </beans:beans>

@@ -17,9 +17,4 @@ public class CloseBrowserHandler implements IJavaHandler {
         return null;
     }
 
-    @Override
-    public String getName() {
-        return getClass().getName();
-    }
-
 }

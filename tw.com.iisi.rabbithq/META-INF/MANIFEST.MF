@@ -11,7 +11,10 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: tw.com.iisi.rabbithq.editors
 Import-Package: org.eclipselabs.p2.rcpupdate.utils,
+ org.slf4j,
  org.springframework.beans.factory,
  org.springframework.context,
  org.springframework.core.io,
- org.springframework.core.io.support
+ org.springframework.core.io.support,
+ org.springframework.osgi.service.exporter,
+ org.springframework.osgi.service.importer

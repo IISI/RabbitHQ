@@ -5,31 +5,60 @@ import java.util.Set;
 
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
-import org.springframework.context.ApplicationContext;
+import org.osgi.framework.ServiceReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.osgi.service.exporter.OsgiServicePropertiesResolver;
+import org.springframework.osgi.service.importer.ServiceReferenceProxy;
 
-import tw.com.iisi.rabbithq.Activator;
-import tw.com.iisi.rabbithq.util.ApplicationContextHolder;
-
+/**
+ * @author Chih-Liang Chang
+ */
 public class JavaFunction extends BrowserFunction {
 
-    public JavaFunction(Browser browser, String name) {
+    final Logger logger = LoggerFactory.getLogger(getClass());
+
+    private Set<ServiceReference> serviceRefs;
+
+    public JavaFunction(Browser browser, String name,
+            Set<ServiceReference> serviceRefs) {
         super(browser, name);
+        this.serviceRefs = serviceRefs;
     }
 
     @Override
     public Object function(Object[] arguments) {
         Object result = null;
-        ApplicationContext appCtx = ApplicationContextHolder
-                .getApplicationContext(Activator.PLUGIN_ID);
-        Set<IJavaHandler> handlers = (Set<IJavaHandler>) appCtx
-                .getBean("javaHandlers");
-        for (Iterator<IJavaHandler> iter = handlers.iterator(); iter.hasNext();) {
-            IJavaHandler handler = iter.next();
-            if (handler.getName().equals(arguments[0])) {
+        boolean found = false;
+
+        if (serviceRefs == null) {
+            logger.warn("IJavaHandler service is empty.");
+            return result;
+        }
+
+        for (Iterator<ServiceReference> iter = serviceRefs.iterator(); iter
+                .hasNext();) {
+            ServiceReference ref = iter.next();
+            String beanName = (String) ref
+                    .getProperty(OsgiServicePropertiesResolver.BEAN_NAME_PROPERTY_KEY);
+            if (beanName != null && beanName.equals(arguments[0])) {
+                ServiceReference nativeReference = ((ServiceReferenceProxy) ref)
+                        .getTargetServiceReference();
+                IJavaHandler handler = (IJavaHandler) nativeReference
+                        .getBundle().getBundleContext()
+                        .getService(nativeReference);
                 result = handler.execute(getBrowser(), arguments);
+                nativeReference.getBundle().getBundleContext()
+                        .ungetService(nativeReference);
+                found = true;
                 break;
             }
         }
+
+        if (!found) {
+            logger.warn("Cannot find matching service for IJavaHandler.");
+        }
+
         return result;
     }
 

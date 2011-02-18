@@ -1,5 +1,7 @@
 package tw.com.iisi.rabbithq.editors;
 
+import java.util.Set;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
@@ -15,6 +17,7 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.ServiceReference;
 
 import tw.com.iisi.rabbithq.Activator;
 
@@ -26,6 +29,8 @@ public class MozillaEditor extends EditorPart {
     public static final String ID = "tw.com.iisi.rabbithq.editors.MozillaEditor";
 
     private Browser browser;
+
+    private Set<ServiceReference> serviceRefs;
 
     @Override
     public void doSave(IProgressMonitor monitor) {
@@ -83,7 +88,8 @@ public class MozillaEditor extends EditorPart {
         });
 
         // 增加 call java from javascript 的功能。
-        final BrowserFunction function = new JavaFunction(browser, "callJava");
+        final BrowserFunction function = new JavaFunction(browser, "callJava",
+                serviceRefs);
 
         browser.setUrl(getEditorInput().getName());
     }
@@ -92,6 +98,10 @@ public class MozillaEditor extends EditorPart {
     public void setFocus() {
         // TODO Auto-generated method stub
 
+    }
+
+    public void setServiceRefs(Set<ServiceReference> serviceRefs) {
+        this.serviceRefs = serviceRefs;
     }
 
 }
