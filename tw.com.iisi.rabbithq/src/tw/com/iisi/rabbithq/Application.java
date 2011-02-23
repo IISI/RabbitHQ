@@ -1,15 +1,26 @@
 package tw.com.iisi.rabbithq;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.ISafeRunnable;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import tw.com.iisi.rabbithq.security.IModuleChecker;
 
 /**
  * This class controls all aspects of the application's execution
  */
 public class Application implements IApplication {
+
+    final Logger logger = LoggerFactory.getLogger(getClass());
 
     /*
      * (non-Javadoc)
@@ -18,6 +29,7 @@ public class Application implements IApplication {
      * IApplicationContext)
      */
     public Object start(IApplicationContext context) {
+        checkPermission();
         Display display = PlatformUI.createDisplay();
         try {
             int returnCode = PlatformUI.createAndRunWorkbench(display,
@@ -48,4 +60,35 @@ public class Application implements IApplication {
             }
         });
     }
+
+    private void checkPermission() {
+        IConfigurationElement[] configs = Platform.getExtensionRegistry()
+                .getConfigurationElementsFor("tw.com.iisi.rabbithq.security");
+        logger.info("Number of security configs: {}", configs.length);
+        try {
+            for (IConfigurationElement config : configs) {
+                final Object o = config.createExecutableExtension("class");
+                if (o instanceof IModuleChecker) {
+                    ISafeRunnable runnable = new ISafeRunnable() {
+
+                        @Override
+                        public void run() throws Exception {
+                            ((IModuleChecker) o).check(Platform
+                                    .getApplicationArgs());
+                        }
+
+                        @Override
+                        public void handleException(Throwable exception) {
+                            logger.error("Failed to check permission.",
+                                    exception);
+                        }
+                    };
+                    SafeRunner.run(runnable);
+                }
+            }
+        } catch (CoreException e) {
+            logger.error("Failed to check permission.", e);
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="tw.com.iisi.rabbithq.security" name="Security" schema="schema/tw.com.iisi.rabbithq.security.exsd"/>
 
    <extension
          id="application"
