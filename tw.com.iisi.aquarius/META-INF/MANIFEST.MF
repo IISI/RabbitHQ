@@ -8,7 +8,14 @@ Bundle-Vendor: Hsien Chih Wang
 Require-Bundle: org.eclipse.core.runtime,
  org.apache.wicket.wicket;bundle-version="1.4.15",
  org.apache.wicket.wicket-spring;bundle-version="1.4.15",
- org.apache.wicket.wicket-ioc;bundle-version="1.4.15"
+ org.apache.wicket.wicket-ioc;bundle-version="1.4.15",
+ net.sf.jasperreports.engine;bundle-version="4.0.1",
+ org.apache.commons.digester;bundle-version="1.8.1",
+ org.apache.commons.beanutils;bundle-version="1.8.3",
+ org.apache.commons.collections;bundle-version="3.2.1",
+ groovy-all;bundle-version="1.7.8",
+ tw.com.iisi.com.lowagie.text;bundle-version="2.1.7"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: tw.com.iisi.aquarius.web
+Import-Package: org.slf4j;version="1.5.11"
