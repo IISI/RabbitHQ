@@ -9,12 +9,16 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
+import org.eclipse.swt.browser.OpenWindowListener;
 import org.eclipse.swt.browser.TitleEvent;
 import org.eclipse.swt.browser.TitleListener;
+import org.eclipse.swt.browser.WindowEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceReference;
@@ -87,6 +91,30 @@ public class MozillaEditor extends EditorPart {
             }
         });
 
+        browser.addOpenWindowListener(new OpenWindowListener() {
+
+            @Override
+            public void open(WindowEvent event) {
+                if (!event.required)
+                    return;
+                IWorkbenchPage page = PlatformUI.getWorkbench()
+                        .getActiveWorkbenchWindow().getActivePage();
+                try {
+                    MozillaEditor editor = (MozillaEditor) page.openEditor(
+                            new BrowserEditorInput(""
+                                    + System.currentTimeMillis()),
+                            MozillaEditor.ID);
+                    event.browser = editor.getBrowser();
+                } catch (PartInitException e) {
+                    Bundle bundle = Platform.getBundle(Activator.PLUGIN_ID);
+                    IStatus status = new Status(IStatus.ERROR, bundle
+                            .getSymbolicName(), bundle.getState(),
+                            "Can not create browser editor part.", e);
+                    Platform.getLog(bundle).log(status);
+                }
+            }
+        });
+
         // 增加 call java from javascript 的功能。
         final BrowserFunction function = new JavaFunction(browser, "callJava",
                 serviceRefs);
@@ -98,6 +126,10 @@ public class MozillaEditor extends EditorPart {
     public void setFocus() {
         // TODO Auto-generated method stub
 
+    }
+
+    public Browser getBrowser() {
+        return browser;
     }
 
     public void setServiceRefs(Set<ServiceReference> serviceRefs) {
