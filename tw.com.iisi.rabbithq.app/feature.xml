@@ -201,4 +201,25 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="tw.com.iisi.rabbithq.web"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.restlet"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.restlet.ext.servlet"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
