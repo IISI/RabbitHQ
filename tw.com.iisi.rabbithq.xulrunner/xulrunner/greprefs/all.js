@@ -1728,3 +1728,6 @@ pref("geo.enabled", true);
 
 // Enable/Disable the orientation API for content
 pref("accelerometer.enabled", true);
+
+// Show file info in download manager
+pref("browser.download.manager.retention", 2);
