@@ -15,59 +15,13 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="RCP Perspective"
+            name="Welcome"
             class="tw.com.iisi.rabbithq.Perspective"
             id="tw.com.iisi.rabbithq.perspective">
       </perspective>
    </extension>
    <extension
-         point="org.eclipse.ui.views">
-      <view
-            name="Message"
-            allowMultiple="true"
-            icon="icons/sample2.gif"
-            class="tw.com.iisi.rabbithq.View"
-            id="tw.com.iisi.rabbithq.view">
-      </view>
-      <view
-            name="Mailboxes"
-            allowMultiple="true"
-            icon="icons/sample3.gif"
-            class="tw.com.iisi.rabbithq.NavigationView"
-            id="tw.com.iisi.rabbithq.navigationView">
-      </view>
-   </extension>
-   <extension
-         point="org.eclipse.ui.commands">
-      <category
-            name="Mail"
-            id="tw.com.iisi.rabbithq.category">
-      </category>
-      <command
-            name="Open Mailbox"
-            description="Opens a mailbox"
-            categoryId="tw.com.iisi.rabbithq.category"
-            id="tw.com.iisi.rabbithq.open">
-      </command>
-      <command
-            name="Open Message Dialog"
-            description="Open a message dialog"
-            categoryId="tw.com.iisi.rabbithq.category"
-            id="tw.com.iisi.rabbithq.openMessage">
-      </command>
-   </extension>
-   <extension
          point="org.eclipse.ui.bindings">
-      <key
-            commandId="tw.com.iisi.rabbithq.open"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="CTRL+2">
-      </key>
-      <key
-            commandId="tw.com.iisi.rabbithq.openMessage"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="CTRL+3">
-      </key>
       <key
             commandId="org.eclipse.ui.file.exit"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
@@ -86,7 +40,7 @@
          </property>
          <property
                name="windowImages"
-               value="icons/sample2.gif">
+               value="icons/sample.gif">
          </property>
          <property
                name="aboutImage"
