@@ -45,6 +45,7 @@ public class RestApp extends Application {
 
         Router router = new Router(getContext());
         router.attach("/rcp/{id}", rcp);
+        router.attach("/static/{page}", HtmlResource.class);
         return router;
     }
 
