@@ -59,5 +59,9 @@
          <command commandId="org.eclipselabs.p2.rcpupdate.update" style="push"/>
       </menuContribution>
    </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view name="Welcome" icon="icon/sample.gif" class="tw.com.iisi.rabbithq.views.WelcomeView" id="tw.com.iisi.rabbithq.views.WelcomeView"></view>
+   </extension>
 
 </plugin>
