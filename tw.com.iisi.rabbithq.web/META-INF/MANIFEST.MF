@@ -6,11 +6,12 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: tw.com.iisi.rabbithq.web.Activator
 Bundle-Vendor: IISI
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: javax.servlet.http;version="2.5.0",
- javax.servlet.jsp.tagext;version="2.1";resolution:=optional,
+Import-Package: javax.servlet;version="2.5.0",
+ javax.servlet.http;version="2.5.0",
  javax.servlet.jsp;version="2.1";resolution:=optional,
- javax.servlet;version="2.5.0",
- org.osgi.framework;version="1.3.0"
+ javax.servlet.jsp.tagext;version="2.1";resolution:=optional,
+ org.osgi.framework;version="1.3.0",
+ tw.com.iisi.rabbithq.web.filter
 Web-ContextPath: /rabbithq
 Require-Bundle: org.eclipse.ui;bundle-version="3.6.1",
  org.eclipse.core.runtime;bundle-version="3.6.0",
