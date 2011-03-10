@@ -11,9 +11,12 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: tw.com.iisi.rabbithq.editors,
  tw.com.iisi.rabbithq.security,
+ tw.com.iisi.rabbithq.util,
  tw.com.iisi.rabbithq.web.filter
 Import-Package: javax.servlet;version="2.5.0",
  javax.servlet.http;version="2.5.0",
+ org.eclipse.jetty.server;version="7.1.6.v20100715",
+ org.eclipse.jetty.util.component;version="7.1.6.v20100715",
  org.eclipselabs.p2.rcpupdate.utils,
  org.slf4j,
  org.springframework.beans.factory,
