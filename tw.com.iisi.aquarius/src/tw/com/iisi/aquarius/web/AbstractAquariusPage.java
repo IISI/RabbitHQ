@@ -23,8 +23,9 @@ public abstract class AbstractAquariusPage extends WebPage {
 
         @Override
         public void onRequest() {
-            Map<String, String[]> params = ((WebRequestCycle) RequestCycle
+            Map<String, String[]> parameterMap = ((WebRequestCycle) RequestCycle
                     .get()).getRequest().getParameterMap();
+            PageParameters params = new PageParameters(parameterMap);
             String result = AbstractAquariusPage.this.handleAjaxRequest(params);
             StringRequestTarget target = new StringRequestTarget(
                     result == null ? "" : result);
@@ -46,7 +47,7 @@ public abstract class AbstractAquariusPage extends WebPage {
         add(behave);
     }
 
-    public String handleAjaxRequest(Map<String, String[]> params) {
+    public String handleAjaxRequest(PageParameters params) {
         return "";
     }
 
