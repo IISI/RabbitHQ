@@ -2,7 +2,7 @@
 <feature
       id="tw.com.iisi.rabbithq.app"
       label="RabbitHQ App"
-      version="1.0.0.qualifier"
+      version="1.0.0"
       provider-name="IISI">
 
    <description url="http://www.example.com/description">
